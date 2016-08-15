@@ -114,7 +114,8 @@ module Mongoid
         relation.each do |association, _inclusion|
           add_inclusion(_klass, association)
           if _inclusion.is_a?(Array)
-            extract_relations_list(association, _inclusion)
+            association_class_name = Object.const_get(_klass.relations[association.to_s][:class_name])
+            extract_relations_list(association_class_name, _inclusion)
           else
             add_inclusion(association, _inclusion)
           end
